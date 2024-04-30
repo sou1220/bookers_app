@@ -1,0 +1,48 @@
+<div class = "flash-message">
+<%= flash[:notice] %>
+</div>
+<table class = "table">
+  <thead>
+    <h1 class = "Books">Books</h1>
+    <div class = "book">
+    <h5 class = "Title text">Title</h5>
+    <h5 class = "Body text">Body</h5>
+  </thead>
+</div>
+
+<% @books.each do |book| %>
+</table>
+
+<span class = "title"><%= book.title %></span>
+<span class = "body"><%= book.body %></span>
+
+<ul class = "list">
+    <li class = "list-item"><%= link_to "Show",book_path(book.id) %>
+    <li class = "list-item"><%= link_to "Edit",edit_book_path(book.id) %>
+    <li class = "list-item"><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
+</ul>
+<% end %>
+
+
+
+<h1>New Book</h1>
+<div class = "error-message">
+  <% if @book.errors.any? %>
+    <%= @book.errors.count %> error prohibited this book from being saved
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+  <% end %>
+  </div>
+    
+<%= form_with model: @book do |f| %>
+  <h6>title</h6>
+    <%= f.text_field :title %>
+  <h6>body</h6>
+    <%= f.text_area :body %>
+  <div class = "create-button">
+    <%= f.submit 'Create Book'%>
+  </div>
+<% end %>
